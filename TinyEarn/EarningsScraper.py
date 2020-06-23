@@ -11,7 +11,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from collections import defaultdict
 import statsmodels.api as sm
 from bs4 import BeautifulSoup
-import datetime
 import re
 
 
@@ -274,12 +273,3 @@ class TinyEarn():
         browser = Firefox(executable_path=r'./geckodriver',
                           options=opts)
         return browser
-
-
-scraper = TinyEarn()
-tsla = scraper.get_earnings('AMZN', start = '04/23/2017', pandas=True, delay=0)
-print(tsla)
-
-#print(zacky)
-#zacky.info()
-#zacky.describe()

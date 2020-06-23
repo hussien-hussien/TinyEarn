@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="TinyEarn-huss", # Replace with your own username
+    name="TinyEarn",
     version="0.0.1",
     author="Hussien Hussien",
     author_email="me@hussien.net",
@@ -20,7 +20,7 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     platforms=['any'],
-    keywords='pandas, earnings report, earnings per share, revenue, finance',
-    install_requires=['pandas>=0.24', 'numpy>=1.15',
-                      'requests>=2.20', 'multitasking>=0.0.7'],
+    keywords='pandas, earnings report, earnings per share, revenue, finance, zacks.com, investment',
+    install_requires=['pandas>=0.24', 'numpy>=1.15','selenium>=3.3.0'
+                      'requests>=2.20', ' beautifulsoup4>=4.5'],
 )

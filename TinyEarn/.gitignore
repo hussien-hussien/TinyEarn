@@ -1,0 +1,5 @@
+__pycache__/*
+TinyEarn/__pycache__/*
+*.pyc
+geckodriver.log
+TinyEarn/geckodriver.log
