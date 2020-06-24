@@ -51,7 +51,7 @@ Returns:
 
 ## Examples
 
-The ``Ticker`` module, which allows you to access ticker data in amore Pythonic way:
+A few examples of how this class can be used:
 
 ``` python
 import TinyEarn as ty
