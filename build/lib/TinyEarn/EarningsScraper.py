@@ -8,7 +8,10 @@ import json
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
+from collections import defaultdict
+import statsmodels.api as sm
 from bs4 import BeautifulSoup
+import re
 
 
 class TinyEarn():

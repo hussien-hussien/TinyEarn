@@ -2,3 +2,6 @@ __pycache__/*
 TinyEarn/__pycache__/*
 *.pyc
 geckodriver.log
+buid/*
+dist/*
+TinyEarn.egg-info

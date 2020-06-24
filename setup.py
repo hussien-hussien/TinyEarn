@@ -21,6 +21,6 @@ setuptools.setup(
     python_requires='>=3.6',
     platforms=['any'],
     keywords='pandas, earnings report, earnings per share, revenue, finance, zacks.com, investment',
-    install_requires=['pandas>=0.24', 'numpy>=1.15','selenium>=3.3.0'
-                      'requests>=2.20', ' beautifulsoup4>=4.5'],
+    install_requires=['pandas>=0.25.3', 'numpy>=1.15.4','selenium>=3.3.0'
+                      'requests>=2.23', ' beautifulsoup4>=4.9.0','requests>=2.22.0'],
 )
