@@ -14,7 +14,8 @@ Packages:
 * beautifulsoup4>=4.9.0
 * requests>=2.22.0
 
-The above packages should auto-install when you install TinyEarn.
+The above packages should auto-install when you install TinyEarn. If you are downloading from github, you should be able to run the following code to install dependencies if you run into any issues.
+`` pip install -r requirements.txt ``
 
 
 ## Get Started
