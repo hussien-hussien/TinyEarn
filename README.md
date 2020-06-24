@@ -29,23 +29,23 @@ There is one public function in the ``TinyEarn()`` Class: ``get_earnings()``. It
 ``get_earnings()``  - Scrapes zacks.com/stock/research/{TICKER}/earnings-announcements to get earnings data. NaN values are filled in for missing data. Dollar values and percentages are expressed as floating point decimals.
 
 Parameters:
-&nbsp;&nbsp;&nbsp;&nbsp; ticker (str): The stock ticker for the company you'd like to pull data for.
-&nbsp;&nbsp;&nbsp;&nbsp; start (datetime.date or str): Only pull data from earnings reported after this date.
-&nbsp;&nbsp;&nbsp;&nbsp;    end (datetime.date or str): Only pull data from earnings reported before this date. Defaults to the current date.
-&nbsp;&nbsp;&nbsp;&nbsp;    pandas(bool, optional): If true, this function returns a pandas dataframe. If False, it returns a dictionary. Defaults to True.
-&nbsp;&nbsp;&nbsp;&nbsp;    delay (int): Time to wait (in seconds) inbetween page changes. Defaults to 1.
+* ticker (str): The stock ticker for the company you'd like to pull data for.
+* start (datetime.date or str): Only pull data from earnings reported after this date.
+* end (datetime.date or str): Only pull data from earnings reported before this date. Defaults to the current date.
+* pandas(bool, optional): If true, this function returns a pandas dataframe. If False, it returns a dictionary. Defaults to True.
+* delay (int): Time to wait (in seconds) inbetween page changes. Defaults to 1.
 
 Returns:
     Returns data from each earnings report by the specificied company within the specified date range. Each row or key represents an earnings call with the following attributes:
-&nbsp;&nbsp;&nbsp;&nbsp;        `Period Ending`: The month that marks the last month of the quarter being reported on. ie, 3/2017 is refering to the Q1 2017 earnings report.
-&nbsp;&nbsp;&nbsp;&nbsp;        `Reported_EPS`: Earnings Per Share reported by the company for thar quarter.
-&nbsp;&nbsp;&nbsp;&nbsp;        `Estimated_EPS`: The consensus estimated Earnings Per Share.
-&nbsp;&nbsp;&nbsp;&nbsp;        `Surprise_EPS`: The surprise in EPS. The difference between the estimated EPS and the reported one.
-&nbsp;&nbsp;&nbsp;&nbsp;        `Surprise_%_EPS`: The surprise expressed as a percentage.
-&nbsp;&nbsp;&nbsp;&nbsp;        `Reported_Revenue`: Total Revenue reported by the company for that quarter.
-&nbsp;&nbsp;&nbsp;&nbsp;        `Estimated_Revenue`: The consensus estimated Revenue.
-&nbsp;&nbsp;&nbsp;&nbsp;        `Surprise_Revenue`: The surprise in Revenue. The difference between the estimated Revenue and the reported one.
-&nbsp;&nbsp;&nbsp;&nbsp;        `Surprise_%_Revenue`: The surprise expressed as a percentage.
+*   `Period Ending`: The month that marks the last month of the quarter being reported on. ie, 3/2017 is refering to the Q1 2017 earnings report.
+*   `Reported_EPS`: Earnings Per Share reported by the company for thar quarter.
+*   `Estimated_EPS`: The consensus estimated Earnings Per Share.
+*   `Surprise_EPS`: The surprise in EPS. The difference between the estimated EPS and the reported one.
+*   `Surprise_%_EPS`: The surprise expressed as a percentage.
+*   `Reported_Revenue`: Total Revenue reported by the company for that quarter.
+*   `Estimated_Revenue`: The consensus estimated Revenue.
+*   `Surprise_Revenue`: The surprise in Revenue. The difference between the estimated Revenue and the reported one.
+*   `Surprise_%_Revenue`: The surprise expressed as a percentage.
             
 
 
