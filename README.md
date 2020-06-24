@@ -1,6 +1,6 @@
 # TinyEarn - Webscraper for Zacks.com
 
-TinyEarn is an simple selenium-based webscaper to pull earnings data from zacks.com. It navigates to 
+TinyEarn is an simple selenium-based webscaper to pull earnings data from zacks.com. It navigates to zacks.com/stock/research/{TICKER}/earnings-announcements and scrapes the earnings data from the present table and the table on the sales tab.
 
 Requirements:
 * Python3
