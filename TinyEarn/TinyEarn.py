@@ -8,17 +8,17 @@ import json
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
-from collections import defaultdict
-import statsmodels.api as sm
 from bs4 import BeautifulSoup
-import datetime
-import re
+import os
+import geckodriver_autoinstaller
 
 
 class TinyEarn():
-    ''' 
+    '''
     This class scrapes Zacks.com to get earnings data from a companies earnings reports.
     '''
+    def __init__(self):
+        geckodriver_autoinstaller.install()
 
     def get_earnings(self, ticker:str, start, end = datetime.date.today(), pandas = True, delay = 1):
         """Scrapes zacks.com/stock/research/{TICKER}/earnings-announcements to get earnings data.
@@ -53,11 +53,11 @@ class TinyEarn():
             2019-10-23    2019-09-01          -0.15          1.86  ...           6303.00           -214.00             -0.0328
             2019-07-24    2019-06-01          -0.54         -1.12  ...           6349.68            -25.81             -0.0040
             2019-04-24    2019-03-01          -1.21         -2.90  ...           4541.46          -1237.27             -0.2141
-            >>> 
-            
+            >>>
+
         """
-        
-        # Check to make sure date times are correct types, 
+
+        # Check to make sure date times are correct types,
         # if either are strings try to convert them to datetime objects
         if isinstance(start,str): start = pd.to_datetime(start)
         if isinstance(end,str): end = pd.to_datetime(end)
@@ -69,7 +69,7 @@ class TinyEarn():
         # Start firefox browser in selenium
         browser = self.__get_browser()
 
-        # Open zacks.com 
+        # Open zacks.com
         url = "https://www.zacks.com/stock/research/" + ticker + "/earnings-announcements"
         browser.get(url)
 
@@ -93,7 +93,7 @@ class TinyEarn():
 
 
     def __merge_dicts(self, first:dict, second:dict):
-        """This helper function merges two two-level dictionaries together on common keys. 
+        """This helper function merges two two-level dictionaries together on common keys.
         Error will be raised if there aren't the same unique keys in each dictionary.
 
         Args:
@@ -110,7 +110,7 @@ class TinyEarn():
 
     def __clean_vals(self, value:str):
         """
-        Takes in string value, cleans it of non float characters ('%','$',',') and returns it as a float. 
+        Takes in string value, cleans it of non float characters ('%','$',',') and returns it as a float.
         If value is empty according to Zacks.com conventions then we just return a 0.
         """
         if value == '--':
@@ -144,7 +144,7 @@ class TinyEarn():
 
             # Create a list of all rows present on the screen
             rows = table.find_all('tr', attrs={'role':'row'})
-            
+
             # Iterate through each row of earnings reports and pull date from each column
             for row in rows:
 
@@ -164,20 +164,20 @@ class TinyEarn():
                     stats_list['Reported_EPS'] = self.__clean_vals(col[3].get_text()) # Reported EPS
                     stats_list['Surprise_EPS'] = self.__clean_vals(col[4].get_text()) # Surprise
                     stats_list['Surprise_%_EPS'] = (self.__clean_vals(col[5].get_text()) / 100) # Surprise %
-                    #stats_list['Ticker'] = ticker 
+                    #stats_list['Ticker'] = ticker
                     return_list[date] = stats_list
-                
+
                 stats_list = {}
 
             # Find next page button
             next_btn = browser.find_element_by_xpath('//*[@id="earnings_announcements_earnings_table_next"]')
             location = next_btn.location
-            
+
             # Scroll next page button into view
             y = location['y'] - 100
-            browser.execute_script("window.scrollTo(0, " + str(y) + ")") 
+            browser.execute_script("window.scrollTo(0, " + str(y) + ")")
             time.sleep(delay)
-            
+
             # Click on next page button
             actions = ActionChains(browser)
             actions.move_to_element(next_btn)
@@ -197,10 +197,10 @@ class TinyEarn():
         # Navigate to Sales Tab
         sales_btn = browser.find_element_by_xpath('//*[@id="ui-id-4"]')
         sales_loc = sales_btn.location
-            
+
         # Scroll next button into view
         y = sales_loc['y'] - 100
-        browser.execute_script("window.scrollTo(0, " + str(y) + ")") 
+        browser.execute_script("window.scrollTo(0, " + str(y) + ")")
 
         # Click on sales tab button
         actions = ActionChains(browser)
@@ -224,7 +224,7 @@ class TinyEarn():
 
             # Create a list of all rows present on the screen
             rows = table.find_all('tr', attrs={'role':'row'})
-            
+
             # This loop iterates through each row, pulls data from each column then moves onto the next page to continue if neccessary
             # done represents whether we have reached the date in earnings report that we want to stop scraping
             for row in rows:
@@ -245,18 +245,18 @@ class TinyEarn():
                     stats_list['Surprise_Revenue'] = self.__clean_vals(col[4].get_text()) # Surprise
                     stats_list['Surprise_%_Revenue'] = (self.__clean_vals(col[5].get_text()) / 100) # Surprise %
                     return_list[date] = stats_list
-                
+
                 stats_list = {}
 
             # Find next page button
             next_btn = browser.find_element_by_xpath('//*[@id="earnings_announcements_sales_table_next"]')
             location = next_btn.location
-            
+
             # Scroll next button into view
             y = location['y'] - 100
-            browser.execute_script("window.scrollTo(0, " + str(y) + ")") 
+            browser.execute_script("window.scrollTo(0, " + str(y) + ")")
             time.sleep(delay)
-            
+
             # Click on it
             actions = ActionChains(browser)
             actions.move_to_element(next_btn)
@@ -265,21 +265,13 @@ class TinyEarn():
 
         return return_list
 
-    
+
     def __get_browser(self):
         ''' Initiate and return firefox browser using gecko driver.
         '''
         opts = Options()
+        path = os.getcwd()
         opts.headless = True
-        browser = Firefox(executable_path=r'./geckodriver',
+        browser = Firefox(executable_path=r'{}/geckodriver.exe'.format(path),
                           options=opts)
         return browser
-
-
-scraper = TinyEarn()
-tsla = scraper.get_earnings('AMZN', start = '04/23/2017', pandas=True, delay=0)
-print(tsla)
-
-#print(zacky)
-#zacky.info()
-#zacky.describe()

@@ -1,1 +1,0 @@
-from .EarningsScraper import TinyEarn
