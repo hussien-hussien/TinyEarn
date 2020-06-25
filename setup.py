@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="TinyEarn",
-    version="0.0.221",
+    version="0.0.12",
     author="Hussien Hussien",
     author_email="me@hussien.net",
     description="Simple selenium webscaper to pull earnings data from zacks.com",
