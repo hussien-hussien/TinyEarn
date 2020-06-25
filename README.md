@@ -1,10 +1,11 @@
 # TinyEarn - Webscraper for Zacks.com
 
-TinyEarn is an simple selenium-based webscaper to pull earnings data from zacks.com. It navigates to zacks.com/stock/research/{TICKER}/earnings-announcements and scrapes the earnings data from the present table and the table on the sales tab.
+TinyEarn is an simple [selenium-based](https://selenium-python.readthedocs.io/) webscaper to pull earnings data from zacks.com. It navigates to zacks.com/stock/research/{TICKER}/earnings-announcements and scrapes the earnings data from the present table and the table on the sales tab.
 
 Requirements:
 * Python3
 * Firefox Browser
+* geckodriver (should be auto-installed)
 
 Packages:
 * pandas>=0.24
@@ -12,10 +13,7 @@ Packages:
 * selenium>=3.3.0
 * requests>=2.23
 * beautifulsoup4>=4.9.0
-
-The above packages should auto-install when you install TinyEarn. If you are downloading from github, you should be able to run the following code to install dependencies if you run into any issues.
-`` pip install -r requirements.txt ``
-
+* geckodriver_autoinstaller>=0.1
 
 ## Get Started
 Simply install the package using pip in your command line.
@@ -46,7 +44,7 @@ Returns:
 *   `Estimated_Revenue`: The consensus estimated Revenue.
 *   `Surprise_Revenue`: The surprise in Revenue. The difference between the estimated Revenue and the reported one.
 *   `Surprise_%_Revenue`: The surprise expressed as a percentage.
-            
+
 
 
 ## Examples
@@ -104,7 +102,7 @@ Surprise_Revenue      13 non-null float64
 Surprise_%_Revenue    13 non-null float64
 dtypes: datetime64[ns](1), float64(8)
 memory usage: 1.0 KB
-                        
+
 ```
 
 ``` python
@@ -135,51 +133,61 @@ print(JPM)
 
 
 ``` console
-{Timestamp('2020-04-14 00:00:00'): 
-	{'Period Ending': Timestamp('2020-03-01 00:00:00'), 
-	'Estimated_EPS': 1.7, 
-	'Reported_EPS': 0.78, 
-	'Surprise_EPS': -0.92, 
-	'Surprise_%_EPS': -0.5412, 
-	'Estimated_Revenue': 29152.0, 
-	'Reported_Revenue': 28251.0, 
-	'Surprise_Revenue': -901.0, 
+{Timestamp('2020-04-14 00:00:00'):
+	{'Period Ending': Timestamp('2020-03-01 00:00:00'),
+	'Estimated_EPS': 1.7,
+	'Reported_EPS': 0.78,
+	'Surprise_EPS': -0.92,
+	'Surprise_%_EPS': -0.5412,
+	'Estimated_Revenue': 29152.0,
+	'Reported_Revenue': 28251.0,
+	'Surprise_Revenue': -901.0,
 	'Surprise_%_Revenue': -0.030899999999999997},
-Timestamp('2020-01-14 00:00:00'): 
-	{'Period Ending': Timestamp('2019-12-01 00:00:00'), 
-	'Estimated_EPS': 2.32, 
-	'Reported_EPS': 2.57, 
-	'Surprise_EPS': 0.25, 
-	'Surprise_%_EPS': 0.10779999999999999, 
-	'Estimated_Revenue': 27261.0, 
-	'Reported_Revenue': 28331.0, 
-	'Surprise_Revenue': 1070.0, 
-	'Surprise_%_Revenue': 0.0393}, 
-Timestamp('2019-10-15 00:00:00'): 
-	{'Period Ending': Timestamp('2019-09-01 00:00:00'), 
-	'Estimated_EPS': 2.44, 
-	'Reported_EPS': 2.68, 
-	'Surprise_EPS': 0.24, 
-	'Surprise_%_EPS': 0.0984, 
-	'Estimated_Revenue': 28403.0, 
-	'Reported_Revenue': 29341.0, 
-	'Surprise_Revenue': 938.0, 
-	'Surprise_%_Revenue': 0.033}, 
-Timestamp('2019-07-16 00:00:00'): 
-	{'Period Ending': Timestamp('2019-06-01 00:00:00'), 
-	'Estimated_EPS': 2.5, 
-	'Reported_EPS': 2.59, 
-	'Surprise_EPS': 0.09, 
-	'Surprise_%_EPS': 0.036000000000000004, 
-	'Estimated_Revenue': 28416.5, 
-	'Reported_Revenue': 28832.0, 
-	'Surprise_Revenue': 415.5, 
+Timestamp('2020-01-14 00:00:00'):
+	{'Period Ending': Timestamp('2019-12-01 00:00:00'),
+	'Estimated_EPS': 2.32,
+	'Reported_EPS': 2.57,
+	'Surprise_EPS': 0.25,
+	'Surprise_%_EPS': 0.10779999999999999,
+	'Estimated_Revenue': 27261.0,
+	'Reported_Revenue': 28331.0,
+	'Surprise_Revenue': 1070.0,
+	'Surprise_%_Revenue': 0.0393},
+Timestamp('2019-10-15 00:00:00'):
+	{'Period Ending': Timestamp('2019-09-01 00:00:00'),
+	'Estimated_EPS': 2.44,
+	'Reported_EPS': 2.68,
+	'Surprise_EPS': 0.24,
+	'Surprise_%_EPS': 0.0984,
+	'Estimated_Revenue': 28403.0,
+	'Reported_Revenue': 29341.0,
+	'Surprise_Revenue': 938.0,
+	'Surprise_%_Revenue': 0.033},
+Timestamp('2019-07-16 00:00:00'):
+	{'Period Ending': Timestamp('2019-06-01 00:00:00'),
+	'Estimated_EPS': 2.5,
+	'Reported_EPS': 2.59,
+	'Surprise_EPS': 0.09,
+	'Surprise_%_EPS': 0.036000000000000004,
+	'Estimated_Revenue': 28416.5,
+	'Reported_Revenue': 28832.0,
+	'Surprise_Revenue': 415.5,
 	'Surprise_%_Revenue': 0.0146}}
 
 ```
 
+## Troubleshooting
+### Lack of dependencies
+The package dependencies should auto-install when you install TinyEarn. If you download source code, you should be able to run the following code to install dependencies if you run into any issues.
 
+`` pip install -r requirements.txt ``
 
+###  'geckodriver.exe' executable needs to be in PATH
+This solution will be unique to different OSs and file set-ups. Essentially, you need to download [Geckodriver](https://github.com/mozilla/geckodriver/releases)
+ and place it in the path that your selenium webdriver looks for it.
+ Here are a few useful stackoverflow solutions:
+ * [Selenium using Python - Geckodriver executable needs to be in PATH](https://stackoverflow.com/questions/40208051/selenium-using-python-geckodriver-executable-needs-to-be-in-path)
+ * [How to put geckodriver into PATH?](http://stackoverflow.com/questions/40388503/how-to-put-geckodriver-into-path)
 
-
-
+### Permission denied on geckodriver.log
+Your geckodriver is not compatible with the version of firefox you have. One of them needs to be updated.
