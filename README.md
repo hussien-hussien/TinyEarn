@@ -16,9 +16,16 @@ Packages:
 * geckodriver_autoinstaller>=0.1
 
 ## Get Started
+
+### Step 1
 Simply install the package using pip in your command line.
 
 ``pip install TinyEarn``
+
+### Step 2
+Install the FireFox Webdriver dependency, geckodriver, in your system file PATH. For some users, this will already be satisfied.
+
+A simple tutorial on how to do this can be found on selenium's website [here](https://www.selenium.dev/documentation/en/webdriver/driver_requirements/). This process is different based on your specific system.
 
 ## Usage
 
