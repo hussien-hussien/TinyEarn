@@ -5,7 +5,7 @@ TinyEarn is an simple [selenium-based](https://selenium-python.readthedocs.io/) 
 Requirements:
 * Python3
 * Firefox Browser
-* geckodriver (should be auto-installed)
+* geckodriver
 
 Packages:
 * pandas>=0.24
@@ -23,7 +23,7 @@ Simply install the package using pip in your command line.
 ``pip install TinyEarn``
 
 ### Step 2
-Install the FireFox Webdriver dependency, geckodriver, in your system file PATH. For some users, this will already be satisfied.
+Install the Firefox Webdriver dependency, geckodriver, in your system file PATH. For some users, this will already be satisfied.
 
 A simple tutorial on how to do this can be found on selenium's website [here](https://www.selenium.dev/documentation/en/webdriver/driver_requirements/). This process is different based on your specific system.
 
@@ -38,12 +38,12 @@ Parameters:
 * start (datetime.date or str): Only pull data from earnings reported after this date.
 * end (datetime.date or str): Only pull data from earnings reported before this date. Defaults to the current date.
 * pandas(bool, optional): If true, this function returns a pandas dataframe. If False, it returns a dictionary. Defaults to True.
-* delay (int): Time to wait (in seconds) inbetween page changes. Defaults to 1.
+* delay (int): Time to wait (in seconds) in between page changes. Defaults to 1.
 
 Returns:
-    Returns data from each earnings report by the specificied company within the specified date range. Each row or key represents an earnings call with the following attributes:
+    Returns data from each earnings report by the specified company within the specified date range. Each row or key represents an earnings call with the following attributes:
 *   `Period Ending`: The month that marks the last month of the quarter being reported on. ie, 3/2017 is refering to the Q1 2017 earnings report.
-*   `Reported_EPS`: Earnings Per Share reported by the company for thar quarter.
+*   `Reported_EPS`: Earnings Per Share reported by the company for that quarter.
 *   `Estimated_EPS`: The consensus estimated Earnings Per Share.
 *   `Surprise_EPS`: The surprise in EPS. The difference between the estimated EPS and the reported one.
 *   `Surprise_%_EPS`: The surprise expressed as a percentage.
@@ -63,7 +63,7 @@ import TinyEarn as ty
 
 scraper = ty.TinyEarn()
 tsla = scraper.get_earnings('TSLA', start = '04/23/2017', pandas=True, delay=0) # Get earnings from April 23rd 2017 to today.
-tsla[['Period Ending','Estimated_EPS','Reported_EPS','Surprise_EPS','Estimated_Revenue','Reported_Revenue','','']]
+tsla[['Period Ending','Estimated_EPS','Reported_EPS','Surprise_EPS','Estimated_Revenue','Reported_Revenue']]
 
 ```
 
@@ -185,16 +185,14 @@ Timestamp('2019-07-16 00:00:00'):
 
 ## Troubleshooting
 ### Lack of dependencies
-The package dependencies should auto-install when you install TinyEarn. If you download source code, you should be able to run the following code to install dependencies if you run into any issues.
+The package dependencies are auto-installed when you install TinyEarn. If this problem persists for you, download source code and run the following code in the package path to install dependencies.
 
 `` pip install -r requirements.txt ``
 
 ###  'geckodriver.exe' executable needs to be in PATH
-This solution will be unique to different OSs and file set-ups. Essentially, you need to download [Geckodriver](https://github.com/mozilla/geckodriver/releases)
- and place it in the path that your selenium webdriver looks for it.
- Here are a few useful stackoverflow solutions:
+This error is raised because geckodriver is not installed in the right system PATH. If you have already done step 2 in the installation process, here are a few useful Stackoverflow responses to help with troubleshooting:
  * [Selenium using Python - Geckodriver executable needs to be in PATH](https://stackoverflow.com/questions/40208051/selenium-using-python-geckodriver-executable-needs-to-be-in-path)
  * [How to put geckodriver into PATH?](http://stackoverflow.com/questions/40388503/how-to-put-geckodriver-into-path)
 
 ### Permission denied on geckodriver.log
-Your geckodriver is not compatible with the version of firefox you have. One of them needs to be updated.
+Your geckodriver is not compatible with the version of Firefox you have. One of them needs to be updated.
